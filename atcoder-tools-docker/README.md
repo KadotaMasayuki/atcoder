@@ -21,6 +21,13 @@ testコマンドでテストする
 
 submitコマンドで提出する
 
+## 確認環境
+
+Windows11 > WSL2 > Ubuntu > Docker
+
+Windows11 Home 22H2 22621.2715
+uname -a → Linux 5.15.133.1-microsoft-standard-WSL2 #1 SMP Thu Oct 5 21:02:42 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
+Docker version 24.0.7, build afdd53b
 
 ## ホスト側（dockerを起動する側）のファイル構成
 
