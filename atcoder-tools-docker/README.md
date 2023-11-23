@@ -22,6 +22,11 @@ testコマンドでテストする
 
 submitコマンドで提出する
 
+## メリット
+
+AtCoder用の開発環境をDockerに封じ込められる。
+
+ソースコードはホストPC内に作られるのでホストPCで再利用できる。
 
 ## 確認環境
 
@@ -45,7 +50,7 @@ Docker version 24.0.7, build afdd53b
 ~/atcoder/src/template/template.cpp
 ```
 
-`.vimrc`は、vimでソースコードを書きたい場合に必要。有無チェックしないので、空ファイルで良いので作っておく。
+`.vimrc`は、vimでソースコードを書きたい場合に自前のものを上記パスにコピーしておく。有無チェックしないので、無ければイメージを作る際にエラーが出るかも。その場合は空ファイルを用意しておく。
 
 `template.cpp`は、問題を取得した際に各問題のディレクトリにmain.cppの名前で配置される。
 
@@ -74,6 +79,7 @@ Docker version 24.0.7, build afdd53b
 ## dockerイメージを作る
 
 `~/atcoder/docker`ディレクトリに移動して、`Dockerfile`のUIDとGIDを変更する。`UID`と`GID`は`id`コマンドでわかる。
+
 ※コンテナ内とホスト内とでユーザーID/グループIDを合わせることで、root権限の乱用を避けたい。
 UIDとGIDがわからなければ、初期値のままで良い。
 
@@ -82,13 +88,13 @@ ARG UID=1000
 ARG GID=1000
 ```
 
-以下のコマンドを打つ
+以下のコマンドをでイメージを作る
 
 ```
 docker build -t atcoder-tools-cpp .
 ```
 
-インストールログが流れる。
+ビルドログが流れる。
 
 ```
 hostuser@host:~/atcoder/docker$ docker build -t atcoder-tools-cpp .
@@ -140,13 +146,13 @@ atcoder-tools-cpp      latest    7eecad31ced0   About an hour ago   676MB
 docker run --rm -it -u $UID --mount type=bind,src=${HOME}/atcoder/src,target=/atcoder-workspace -w /atcoder-workspace atcoder-tools-cpp /bin/bash
 ```
 
-または、スクリプトで起動する
+または、スクリプトを用意しているのでそれで起動する
 
 ```
 hostuser@host:~/atcoder/docker$ bash start.bash
 ```
 
-コマンドプロンプトが次のようになっていたら成功
+コマンドプロンプトが次のようになったら成功
 
 ```
 acuser@xxxxxxxxxx:/atcoder-workspace$ 
@@ -160,7 +166,9 @@ acuser@xxxxxxxxxx:/atcoder-workspace$
 
 ## コンテナ内のコマンド
 
-コマンドが長ったらしいのでalias設定している。
+コマンドが長ったらしいのでalias設定済み。
+
+現在AtCoderはc++20になっているが、今回用意したイメージでは利用できないようなのでc++17でやる。トリッキーなことをしない限りは問題ないはず。
 
 ```
 alias ac-g++='g++-9 -O0 -std=c++17 -Wall -Wextra -Wconversion -Wshadow -Wfloat-equal -ftrapv -fsanitize=undefined,address -fno-omit-frame-pointer -fno-sanitize-recover -g -I /tmp/ac-library'
