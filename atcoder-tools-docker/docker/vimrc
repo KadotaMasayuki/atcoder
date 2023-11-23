@@ -1,0 +1,107 @@
+
+"
+" https://memo.ag2works.tokyo/post-1856/
+"
+set nocompatible "Vi互換の動作をオフ (「.vimrc」があると自動的にオフ)
+
+set encoding=utf-8 "Vimが内部処理で使用する文字コード
+scriptencoding utf-8 "開いたファイルのVim scriptの文字コード
+set fileencoding=utf-8 "ファイル保存時の文字コード(設定が無ければencodingの文字コード)
+set fileencodings=utf-8,euc-jp,iso-20220-jp "文字化け対策のために羅列(左から優先的にチェックされる)
+set fileformats=unix,mac,dos "改行コードのフォーマットを指定(複数記述により自動判別して非互換対策)
+
+filetype on "ファイル形式の検出を有効化
+filetype plugin indent on "ファイル形式の検出、ファイル形式別プラグイン・インデントのロードを有効化
+set clipboard=unnamed "yankとputをOSのクリップボードと連携させる(文字列が格納されている「無名レジスタ」の内容を「*レジスタ」にセットする)
+set clipboard=unnamedplus "「無名レジスタ」の内容を「+レジスタ」にセットする(OSによって「unnamed」と使い分け)
+set clipboard=autoselect "テキスト選択したら自動的にクリップボードにコピー
+set history=100 "コマンドの履歴をn件保存
+set wildmenu "コマンドラインモードのときに「tab」キーで入力補完候補の一覧を表示
+
+set number "行番号表示
+set title "タイトルバーにファイルパスを表示
+set list "タブ、スペース、改行文字を可視化
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:% "不可視文字(タブ、行末でのスペース、改行、画面両端で見切れているテキストの存在を示す記号、スペースの文字コード)の表記を変更
+"set visualbell "ビープ音を視覚表示(ビープ音時にカラー反転)
+set showcmd "コマンド(「d2w」など)の入力途中でキー入力の状態を画面右下に表示
+
+syntax on "シンタックスハイライト有効化
+colorscheme koehler "使用するカラースキームの指定
+
+set laststatus=2 "画面下にステータスラインを常に表示(「0」は非表示、「1」はウィンドウが分割の場合だけ表示)
+"set statusline=%n  "バッファ番号
+"set statusline=%f　"ファイルの相対パス
+"set statusline+=%F　"ファイルの絶対パス
+"set statusline+=%y "ファイル形式
+"set statusline+=%m "内容が編集されている場合は[+]を表示(読み込み専用なら[-]で表示)
+"set statusline+=%r "読み込み専用の場合は[RO]を表示
+"set statusline+=%h "ヘルプの場合は[Help]を表示
+"set statusline+=%w "プレビューの場合は[Prevew]を表示
+"set statusline+=%= "左右の区切り(これ以降は右寄せで表示)
+"set statusline+=%{&ff} "fileformatの値を表示(fileformat」の省略形)(dos, unix, mac)
+"set statusline+=%{&fileencoding!=''?&fileencoding:&encoding} "fileencoding(ファイルの文字コード)の設定値、無ければencoding(Vimの文字コード)の値
+"set statusline+=%l "カーソル位置の行番号
+"set statusline+=%c "カーソル位置の列番号
+"set statusline+=%p "全行数の何%の位置に居るか
+"set statusline+=%L "ファイルの全行数
+"1つにまとめて記述
+set statusline=%n\ %F\ %y%m\ %r%h%w%=[%{&fileencoding!=''?&fileencoding:&encoding},%{&ff}]\ [Pos\ %02l,%02c]\ [%p%%/%L]
+
+set cursorline "カーソルがある行を強調表示
+"set cursorcolumn "カーソルがある列を強調表示
+set whichwrap=b,s,h,l,<,>,~,[,] "行頭行末の左右移動で上下の行に移動
+set virtualedit=onemore "行末の1文字右までカーソルを移動をできるようにする
+set ruler "カーソル位置の行・列番号をステータスラインに表示(statuslineで設定変更してない場合)
+
+set autoread "外部でファイルに変更があったときに自動再読み込み
+set confirm "保存されていないときは終了前に確認(保存を確認するYes,No,Cancel選択の表示)
+set nobackup "保存時に保存前のバックアップファイルを生成しない
+set noswapfile "編集中のファイルをスワップファイルとして保存しない
+
+set showmatch "括弧入力時に対応する括弧を強調表示
+set completeopt=menuone,noinsert "常に補完ウィンドウを表示,補完ウィンドウを表示時に挿入しない
+
+set autoindent "新しい行に前の行のインデントが引き継がれる自動インデント
+set smartindent "C言語ライクに判別する自動インデント
+set cindent "より厳密に判別する自動インデント(smartindentは無効になる)
+
+set tabstop=2 "半角スペースn個連続で「Tab」文字に変換(expandtabがオフの場合)
+set softtabstop=2 "「Tab」キーで半角スペースをn個挿入(smarttabがオフの場合)
+set shiftwidth=2 "挿入されるインデントの幅を半角スペースをn個に設定
+set expandtab "tabstopなどの設定による半角スペースの「Tab」文字への変換をさせない
+set smarttab "行頭のときに「Tab」キーでインデント(shiftwidthの値に準拠)
+
+set hlsearch "検索該当文字列をハイライト強調
+set wrapscan "ファイル末尾まで検索して進んだらファイルの先頭に戻る
+set ignorecase "大文字/小文字の区別をしない
+set smartcase "入力した検索ワードに大文字が含まれる場合だけ、大文字/小文字の区別をする
+set incsearch "入力中に部分マッチで該当検索(「enter」キーを押さずに入力1文字ごとに検索開始)
+
+
+"ESC連打でハイライト除去
+nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR><C-l>
+
+"単語上でスペースを押すとハイライト
+nnoremap <silent> <Space><Space> :let @/ = '\<' . expand('<cword>') . '\>'<CR>:set hlsearch<CR>
+
+"インサートモードでのカーソル移動
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+
+"インサートモードでの自動括弧入力
+inoremap { {}<Left>
+inoremap [ []<Left>
+inoremap ( ()<Left>
+inoremap ' ''<Left>
+inoremap " ""<Left>
+
+"インサートモードで補完候補を確定した時のEnterで改行しない
+"inoremap <expr> <CR> pumvisible() ? "<C-y>" : "<CR>"
+
+"インサートモードでjjするとノーマルモードへ
+inoremap <silent> jj <Esc>
+inoremap <silent> ｊｊ <Esc>
+
+
