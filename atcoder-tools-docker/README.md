@@ -4,6 +4,7 @@ atcoder-tools
 
 https://github.com/kyuridenamida/atcoder-tools/blob/stable/README.md
 
+
 ## docker内にatcoder-toolsを構成して、以下のように使う。
 
 コンテナ起動し中に入る
@@ -21,13 +22,17 @@ testコマンドでテストする
 
 submitコマンドで提出する
 
+
 ## 確認環境
 
 Windows11 > WSL2 > Ubuntu > Docker
 
 Windows11 Home 22H2 22621.2715
+
 uname -a → Linux 5.15.133.1-microsoft-standard-WSL2 #1 SMP Thu Oct 5 21:02:42 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
+
 Docker version 24.0.7, build afdd53b
+
 
 ## ホスト側（dockerを起動する側）のファイル構成
 
@@ -64,6 +69,7 @@ Docker version 24.0.7, build afdd53b
                        a.out
                    B/
 ```
+
 
 ## dockerイメージを作る
 
@@ -146,9 +152,11 @@ hostuser@host:~/atcoder/docker$ bash start.bash
 acuser@xxxxxxxxxx:/atcoder-workspace$ 
 ```
 
+
 ## コンテナ内の構成
 
 `/atcoder-workspace`がホストの`~/atcoder/src`を示す。
+
 
 ## コンテナ内のコマンド
 
@@ -161,6 +169,7 @@ alias ac-gen-nologin='atcoder-tools gen --workspace=/atcoder-workspace --templat
 alias ac-submit='atcoder-tools submit -f -u'
 alias ac-test='atcoder-tools test'
 ```
+
 
 ### `gen`コマンドでコンテストの問題を取得する
 
@@ -222,6 +231,7 @@ acuser@xxxxxxxxxx:/atcoder-workspace$ ls abc001/
 A  B  C  D  E  F  G
 ```
 
+
 ### ソースコードを編集する
 
 ```
@@ -229,6 +239,7 @@ acuser@xxxxxxxxxx:/atcoder-workspace/abc326/A$ vim main.cpp
 ```
 
 または、ホストPCの`~/atcoder/src/agc326/A/main.cpp`を好みのエディタで編集する。
+
 
 ### コンパイルする
 
@@ -239,6 +250,7 @@ acuser@xxxxxxxxxx:/atcoder-workspace/abc326/A$ ac-g++ main.cpp
 acuser@xxxxxxxxxx:/atcoder-workspace/abc326/A$ ./a.out
 Yes
 ```
+
 
 ### テストする
 
@@ -266,7 +278,9 @@ No
 Yes
 ```
 
+
 ### 提出する
 
 動作未確認
+
 
