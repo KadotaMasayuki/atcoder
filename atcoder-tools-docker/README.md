@@ -1,5 +1,8 @@
 # atcoder-toolsをdockerで使う
 
+atcoder-tools
+
+https://github.com/kyuridenamida/atcoder-tools/blob/stable/README.md
 
 ## docker内にatcoder-toolsを構成して、以下のように使う。
 
