@@ -242,19 +242,22 @@ A  B  C  D  E  F  G
 
 ### ソースコードを編集する
 
+`ac-gen`により`template.cpp`が`main.cpp`という名前で配置されるので、これを`vim`で編集。
+
 ```
 acuser@xxxxxxxxxx:/atcoder-workspace/abc326/A$ vim main.cpp
 ```
 
-または、ホストPCの`~/atcoder/src/agc326/A/main.cpp`を好みのエディタで編集する。
+または、このディレクトリはコンテナの外にあるので、ホストPCの`~/atcoder/src/agc326/A/main.cpp`を好みのエディタで編集する。
 
 
 ### コンパイルする
 
-`ac-g++`でソースコードを指定してコンパイルする。
+`ac-g++`でソースコード`main.cpp`を指定してコンパイルする。
 
 ```
 acuser@xxxxxxxxxx:/atcoder-workspace/abc326/A$ ac-g++ main.cpp
+
 acuser@xxxxxxxxxx:/atcoder-workspace/abc326/A$ ./a.out
 Yes
 ```
@@ -262,10 +265,10 @@ Yes
 
 ### テストする
 
-上記の`Yes`としか出力しない`main.cpp`をそのままコンパイルしてテストしてみると以下の通り。
+上記の`Yes`としか出力しない`main.out`を`ac-test`してみると以下の通り。
 
 ```
-acuser@167d78aeb71f:/atcoder-workspace/abc326/A$ ac-test
+acuser@xxxxxxxxxx:/atcoder-workspace/abc326/A$ ac-test
 2023-11-23 12:10:04,376 INFO: Inferred exec file: ./a.out
 # in_1.txt ... WA
 [Input]
@@ -289,6 +292,15 @@ Yes
 
 ### 提出する
 
-動作未確認
+`ac-submit`で現在の`main.cpp`を提出する。
 
+```
+2023-11-25 17:34:04,364 INFO: No USER_CONFIG_PATH(/home/acuser/.atcodertools.toml). Default config path(/usr/local/lib/python3.8/dist-packages/atcodertools/tools/atcodertools-default.toml) is laoded.
+2023-11-25 17:34:04,365 INFO: Loaded session from /home/acuser/.local/share/atcoder-tools/cookie.txt
+2023-11-25 17:34:04,547 INFO: Successfully Logged in using the previous session cache.
+2023-11-25 17:34:04,547 INFO: If you'd like to invalidate the cache, delete /home/acuser/.local/share/atcoder-tools/cookie.txt.
+2023-11-25 17:34:04,547 INFO: Submitting ./main.cpp as cpp
+2023-11-25 17:34:04,777 INFO: Done! https://atcoder.jp/contests/abc330/submissions/yyyyyyy
+acuser@xxxxxxxxxx:/atcoder-workspace/abc330/A$
+```
 
