@@ -23,7 +23,7 @@ void debug_print(vector<T> vec)
   cout << vec.at(vec.size() - 1) << endl;
 }
 #else
-#define debug(...) ;
+#define dprint(...) ;
 #endif
 
 int main(){
