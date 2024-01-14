@@ -76,6 +76,42 @@ Docker version 24.0.7, build afdd53b
 ```
 
 
+## windows上にディレクトリを準備する（windows - wsl - docker の場合)
+
+:::note info
+wslやlinuxをリセットするなどで、各コンテストに提出したソースコードが消えることを避けるため、データ類はwindows上で管理する
+:::
+
+windows上の任意のディレクトリに、`docker`ディレクトリと、`src`ディレクトリを作る。
+`docker`ディレクトリ内に、`Dockerfile`と`create.bash`と`start.bash`を格納しておく。
+
+たとえば、ユーザー`a user`の`マイドキュメント`の`wsl_test`の`atcoder_test`ディレクトリを以下のように準備する。
+
+```
+windows/c/Users/a user/My Documents/wsl_test/atcoder_test/
+    docker/
+        Dockerfile
+        create.bash
+        start.bash
+    src/
+        template/
+            template.cpp
+```
+
+つづいて、wsl上にatcoderディレクトリを作る。
+wslからは、windowsのディレクトリは、`/mnt/C/Users/a user/My Documents/wsl_test/atcoder_test`というパスで辿れるので、このパスをwslのホームディレクトリにシンボリックリンクする。
+
+```
+wsl $ cd ~/
+wsl $ ln -s /mnt/C/Users/a user/My Documents/wsl_test/atcoder_test atcoder
+wsl $ ls -lX
+lrwxrwxrwx 1 yourname   atcoder -> '/mnt/C/Users/a user/My Documents/wsl_test/atcoder_test'
+wsl $ ls jupyter
+docker/  src/
+wsl $
+```
+
+
 ## dockerイメージを作る
 
 `~/atcoder/docker`ディレクトリに移動して、`Dockerfile`のUIDとGIDを変更する。`UID`と`GID`は`id`コマンドでわかる。
@@ -143,7 +179,7 @@ atcoder-tools-cpp      latest    7eecad31ced0   About an hour ago   676MB
 できていたら、次のコマンドを打ってコンテナを起動する
 
 ```
-docker run --rm -it -u $UID --mount type=bind,src=${HOME}/atcoder/src,target=/atcoder-workspace -w /atcoder-workspace atcoder-tools-cpp /bin/bash
+docker run --rm -it -u $UID --mount type=bind,src=${HOME}/atcoder/src,target=/atcoder-workspace --workdir /atcoder-workspace atcoder-tools-cpp /bin/bash
 ```
 
 または、スクリプトを用意しているのでそれで起動する
